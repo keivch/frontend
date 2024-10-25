@@ -22,7 +22,7 @@ const Home = () => {
 
   const fetchTickets = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/getTickets/");
+      const response = await axios.get("https://inventariodeporcali.onrender.com/getTickets/");
       const fetchedTickets = response.data.tickets;
 
       // Si hay más tickets que los anteriores, mostrar notificación
@@ -75,7 +75,7 @@ const Home = () => {
 
   const handleChangeStatus = async (id, newStatus, observations = "") => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/changeStatus/", {
+      const response = await axios.post("https://inventariodeporcali.onrender.com/changeStatus/", {
         id: id,
         estado: newStatus,
         observaciones: observations,
@@ -124,7 +124,7 @@ const Home = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");

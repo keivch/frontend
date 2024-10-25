@@ -21,7 +21,7 @@ const Licencias = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/getLicencias/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getLicencias/');
       setLicencias(response.data.Licencias); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener las licencias:', error);
@@ -40,7 +40,7 @@ const Licencias = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getLicencia/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getLicencia/', { id });
       response.data.licencia.nombre = response.data.licencia.nombre.nombre;
       response.data.licencia.llave = response.data.licencia.llave.llave;
       setFormLicenciaData(response.data.licencia); // Actualiza el formulario con la información de la licencia
@@ -55,7 +55,7 @@ const Licencias = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -80,7 +80,7 @@ const Licencias = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addLicencia/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addLicencia/', formData);
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias
@@ -92,7 +92,7 @@ const Licencias = () => {
 
   const handleSaveLlave = async (formData) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addLlave/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addLlave/', formData);
       alert(response.data.message);
       setIsPopupOpenLlave(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias

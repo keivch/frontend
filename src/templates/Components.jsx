@@ -18,7 +18,7 @@ const Components = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/getDiscos/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getDiscos/');
       setComponents(response.data.Discos); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
@@ -37,7 +37,7 @@ const Components = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getDisco/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getDisco/', { id });
       setFormData(response.data.disco); // actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
       setIsPopupOpen(true); // Abre el popup
@@ -50,7 +50,7 @@ const Components = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -71,7 +71,7 @@ const Components = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addDisco/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addDisco/', formData);
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos

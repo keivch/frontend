@@ -19,7 +19,7 @@ const AddUsers = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/getUsers/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getUsers/');
       setUsers(response.data.userss); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
@@ -38,7 +38,7 @@ const AddUsers = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getUser/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getUser/', { id });
       response.data.user.cargo = response.data.user.cargo.nombre;
       setFormData(response.data.user); // Actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
@@ -52,7 +52,7 @@ const AddUsers = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -77,7 +77,7 @@ const AddUsers = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addUsers/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addUsers/', formData);
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
@@ -93,7 +93,7 @@ const AddUsers = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addCargo/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addCargo/', formData);
       alert(response.data.message);
       setIsPopupCargoOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos

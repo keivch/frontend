@@ -19,7 +19,7 @@ const RestorePassword = () => {
     useEffect(() => {
         const fetchRequests = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/getSolicitudes/");
+                const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/");
                 setRequests(response.data.solicitudes); // Usar los datos de la API
                 setLoading(false);
             } catch (err) {
@@ -39,7 +39,7 @@ const RestorePassword = () => {
 
     const fetchRequests = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/getSolicitudes/");
+            const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/");
             setRequests(response.data.solicitudes); // Usar los datos de la API
             setLoading(false);
             setShowNotification(false);
@@ -78,7 +78,7 @@ const RestorePassword = () => {
     const handleLogout = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/logout/", {
+            await axios.post("https://inventariodeporcali.onrender.com/logout/", {
                 SessionId: cookies.load("SessionId"),
             });
             cookies.remove("SessionId");
@@ -98,7 +98,7 @@ const RestorePassword = () => {
         }
         
         try {
-            await axios.post("http://127.0.0.1:8000/changePassword/", {
+            await axios.post("https://inventariodeporcali.onrender.com/changePassword/", {
                 correo: correo,
                 newPassword: newPassword
             });

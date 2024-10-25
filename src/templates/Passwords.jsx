@@ -18,7 +18,7 @@ const Passwords = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/getContrasenas/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getContrasenas/');
       setPasswords(response.data.contrasenas); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
@@ -37,7 +37,7 @@ const Passwords = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getContrasena/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getContrasena/', { id });
       response.data.contrasena.Usuario = response.data.contrasena.Usuario.nombre;
       setFormData(response.data.contrasena); // actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
@@ -51,7 +51,7 @@ const Passwords = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -73,7 +73,7 @@ const Passwords = () => {
 
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addContrasenas/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addContrasenas/', formData);
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos

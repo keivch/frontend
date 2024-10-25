@@ -45,7 +45,7 @@ const HomeUser = () => {
 
     const fetchComunicados = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/getComunicados');
+            const response = await axios.get('https://inventariodeporcali.onrender.com/getComunicados');
             const sortedComunicados = response.data.coms.sort(
                 (a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)
             );
@@ -72,7 +72,7 @@ const HomeUser = () => {
         }
 
         try {
-            await axios.post('http://localhost:8000/addComunicado/', formData, {
+            await axios.post('https://inventariodeporcali.onrender.com/addComunicado/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -92,7 +92,7 @@ const HomeUser = () => {
 
     const handleReaction = async (comunicadoId, tipo) => {
         try {
-            await axios.post('http://localhost:8000/addReaccion/', {
+            await axios.post('https://inventariodeporcali.onrender.com/addReaccion/', {
                 id: comunicadoId,
                 tipo: tipo,
                 SessionId: cookies.load('SessionId'),
@@ -107,7 +107,7 @@ const HomeUser = () => {
         if (!comentario) return;
 
         try {
-            await axios.post('http://localhost:8000/addComentario/', { id: comunicadoId, contenido: comentario, SessionId: cookies.load('SessionId') });
+            await axios.post('https://inventariodeporcali.onrender.com/addComentario/', { id: comunicadoId, contenido: comentario, SessionId: cookies.load('SessionId') });
             fetchComunicados(); // Actualizar los comentarios
         } catch (error) {
             console.error('Error adding comment:', error);
@@ -178,7 +178,7 @@ const HomeUser = () => {
 
                             {comunicado.imagen && (
                                 <img
-                                    src={`http://localhost:8000${comunicado.imagen}`}
+                                    src={`https://inventariodeporcali.onrender.com${comunicado.imagen}`}
                                     alt="Imagen del comunicado"
                                     className="w-full h-auto max-h-80 object-contain rounded-md mb-4"  // Imagen que se adapta
                                 />

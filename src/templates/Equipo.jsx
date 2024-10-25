@@ -17,7 +17,7 @@ const Equipo = () => {
 
   const fetchEquipos = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/getEquipos/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getEquipos/');
       setEquipos(response.data.equipos); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los equipos:', error);
@@ -36,7 +36,7 @@ const Equipo = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getEquipo/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getEquipo/', { id });
       response.data.equipo.usuario = response.data.equipo.usuario.nombre;
       setFormData(response.data.equipo); // Actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
@@ -50,7 +50,7 @@ const Equipo = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -75,7 +75,7 @@ const Equipo = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/addEquipo/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addEquipo/', formData);
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchEquipos(); // Actualiza la lista de equipos

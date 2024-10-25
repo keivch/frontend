@@ -42,7 +42,7 @@ const Tickets = () => {
     setLoading(true); // Activar el estado de carga
     if (ticketForm.type && ticketForm.description) {
       try {
-        await axios.post("http://127.0.0.1:8000/addTicket/", {
+        await axios.post("https://inventariodeporcali.onrender.com/addTicket/", {
           tipo: ticketForm.type,
           descripcion: ticketForm.description,
           estado: "Pendiente",
@@ -66,7 +66,7 @@ const Tickets = () => {
     try {
       const token = cookies.load("SessionId");
       const response = await axios.get(
-        `http://127.0.0.1:8000/getMyTickets/?q=${token}`
+        `https://inventariodeporcali.onrender.com/getMyTickets/?q=${token}`
       );
       setTickets(response.data.tickets.filter((ticket) => ticket.estado !== "Resuelto"));
       setShowNotification(false);
@@ -105,7 +105,7 @@ const Tickets = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");

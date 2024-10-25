@@ -62,7 +62,7 @@ const Login = () => {
     event.preventDefault();
     setIsRequesting(true); // Indica que la solicitud está en progreso
     try {
-      const response = await axios.post("http://127.0.0.1:8000/addSolicitud/", {
+      const response = await axios.post("https://inventariodeporcali.onrender.com/addSolicitud/", {
         correo: emailPopup,
       });
       alert(response.data.message);
@@ -79,7 +79,7 @@ const Login = () => {
       <section className="m-6 flex justify-center w-2/3 flex-col gap-6 mx-auto relative">
         <div>
           <img
-            src="./src/assets/sistema-informatico.png"
+            src="https://e7.pngegg.com/pngimages/662/460/png-clipart-computer-network-internet-computer-software-system-computer-computer-network-computer.png"
             className="bg-gradient-to-r from-green-950 to-black w-20 p-4 rounded-lg"
           />
         </div>
@@ -92,7 +92,7 @@ const Login = () => {
             onChange={handleCorreoChange}
             name="E-mail"
             value={correo}
-            placeholder="Ejemplo: isaac@gmail.com"
+            placeholder="Ejemplo: isaac@deportivocali.com.co"
           />
           <Input
             type="password"

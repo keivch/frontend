@@ -14,7 +14,7 @@ const TicketsUser = () => {
     const fetchTickets = async () => {
         try {
             const token = cookies.load('SessionId'); // Se asume que el token se almacena en las cookies
-            const response = await axios.get('http://localhost:8000/getAllMyTickets', {
+            const response = await axios.get('https://inventariodeporcali.onrender.com/getAllMyTickets', {
                 params: {
                     q: token
                 }

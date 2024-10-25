@@ -13,7 +13,7 @@ const Htickets = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/logout/", {
+      await axios.post("https://inventariodeporcali.onrender.com/logout/", {
         SessionId: cookies.load("SessionId"),
       });
       cookies.remove("SessionId");
@@ -33,7 +33,7 @@ const Htickets = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/getAllTickets/");
+        const response = await axios.get("https://inventariodeporcali.onrender.com/getAllTickets/");
         setTickets(response.data.tickets);
         setLoading(false); // Desactivar el loader
       } catch (error) {
