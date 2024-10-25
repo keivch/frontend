@@ -1,6 +1,6 @@
 // src/App.jsx
 import { Routes, Route } from 'react-router-dom';
-import Login from './templates/Login';
+import Login from './templates/login';
 import Equipo from './templates/Equipo';
 import AddUsers from './templates/AddUsers';  // Importa el nuevo componente
 import Passwords from './templates/Passwords';
