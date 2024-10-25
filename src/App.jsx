@@ -6,8 +6,6 @@ import AddUsers from './templates/AddUsers';  // Importa el nuevo componente
 import Passwords from './templates/Passwords';
 import Components from './templates/Components';
 import Licencias from './templates/Licencias';
-import Documentacion from './templates/Documentacion';
-import Backup from './templates/Backup';
 import HomeUser from './templates/HomeUser';
 import Tickets from './templates/Tickets';
 import Home from './templates/Home';
@@ -25,8 +23,6 @@ function App() {
       <Route path="/Passwords" element={<Passwords />} />
       <Route path="/Components" element={<Components />} />
       <Route path="/Licencias" element={<Licencias />} />
-      <Route path="/Documentacion" element={<Documentacion />} />
-      <Route path="/Backup" element={<Backup />} />
       <Route path="/HomeUser/:nombre" element={<HomeUser />} />
       <Route path="/Tickets" element={<Tickets />} />
       <Route path="/Home" element={<Home />} />
