@@ -31,7 +31,7 @@ const Tickets = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
