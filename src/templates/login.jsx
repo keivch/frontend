@@ -37,8 +37,7 @@ const Login = () => {
         path: "/",
         expires: new Date(Date.now() + 3600000), // 1 hora
         secure: true, 
-        sameSite: "Lax", 
-        httpOnly: true
+        sameSite: "Lax"
       });
       
       if (response.data.admin) {
