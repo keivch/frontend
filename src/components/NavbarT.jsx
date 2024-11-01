@@ -10,7 +10,7 @@ const NavbarT = () => {
   const handleLogout = async (event) => {
       event.preventDefault();
       try {
-        await axios.post("http://127.0.0.1:8000/logout/", {
+        await axios.post("https://inventariodeporcali.onrender.com/logout/", {
           SessionId: cookies.load("SessionId"),
         });
         cookies.remove("SessionId");

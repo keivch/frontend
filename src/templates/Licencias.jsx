@@ -21,7 +21,11 @@ const Licencias = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('https://inventariodeporcali.onrender.com/getLicencias/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getLicencias/', {
+        headers: {  
+          'Authorization': `Bearer ${cookies.load("SessionId")}`
+        }
+      });
       setLicencias(response.data.Licencias); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener las licencias:', error);

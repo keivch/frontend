@@ -19,7 +19,13 @@ const RestorePassword = () => {
     useEffect(() => {
         const fetchRequests = async () => {
             try {
-                const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/");
+                const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/",
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${cookies.load("SessionId")}`
+                        }
+                    }
+                );
                 setRequests(response.data.solicitudes); // Usar los datos de la API
                 setLoading(false);
             } catch (err) {
@@ -39,7 +45,13 @@ const RestorePassword = () => {
 
     const fetchRequests = async () => {
         try {
-            const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/");
+            const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/",
+                {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                    }
+                }
+            );
             setRequests(response.data.solicitudes); // Usar los datos de la API
             setLoading(false);
             setShowNotification(false);
@@ -101,7 +113,13 @@ const RestorePassword = () => {
             await axios.post("https://inventariodeporcali.onrender.com/changePassword/", {
                 correo: correo,
                 newPassword: newPassword
-            });
+            },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                    }
+                }
+            );
             setEditingId(null);
             setNewPassword(''); // Limpiar el input de nueva contrase
             fetchRequests();

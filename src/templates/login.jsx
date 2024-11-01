@@ -33,9 +33,14 @@ const Login = () => {
         password: password,
       });
       const token = response.data.SessionId;
-      cookies.save("SessionId", token, 
-        { path: "/", expires: new Date(Date.now() + 3600000) }
-      );
+      cookies.save("SessionId", token, {
+        path: "/",
+        expires: new Date(Date.now() + 3600000), // 1 hora
+        secure: true, 
+        sameSite: "Strict", 
+        httpOnly: true
+      });
+      
       if (response.data.admin) {
         navigate("/Home");
       } else {

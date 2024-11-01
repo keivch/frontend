@@ -37,7 +37,13 @@ const Popup = ({ edit = false, onClose, onSave, formData: initialFormData }) => 
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/getUserss/?q=${searchTerm}`);
+      const response = await axios.get(`https://inventariodeporcali.onrender.com/getUserss/?q=${searchTerm}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setUserResults(response.data.userss);
     } catch (error) {
       console.error('Error al buscar usuarios:', error);

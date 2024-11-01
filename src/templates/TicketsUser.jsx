@@ -17,6 +17,9 @@ const TicketsUser = () => {
             const response = await axios.get('https://inventariodeporcali.onrender.com/getAllMyTickets', {
                 params: {
                     q: token
+                }, 
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
             });
             setTickets(response.data.tickets);

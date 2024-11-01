@@ -36,7 +36,13 @@ const PopupAddUser = ({ edit = false, onClose, onSave, formData: initialFormData
 
   const handleSearchCargo = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/getCargos/?q=${searchTerm}`);
+      const response = await axios.get(`https://inventariodeporcali.onrender.com/getCargos/?q=${searchTerm}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setCargoResults(response.data.cargos);
     } catch (error) {
       console.error('Error al buscar cargos:', error);

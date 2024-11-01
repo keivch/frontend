@@ -18,7 +18,13 @@ const Components = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('https://inventariodeporcali.onrender.com/getDiscos/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getDiscos/',
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setComponents(response.data.Discos); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
@@ -37,7 +43,13 @@ const Components = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/getDisco/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getDisco/', { id }, 
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setFormData(response.data.disco); // actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
       setIsPopupOpen(true); // Abre el popup
@@ -71,7 +83,13 @@ const Components = () => {
       return;
     }
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addDisco/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addDisco/', formData, 
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos

@@ -38,7 +38,13 @@ const PopupLicencias = ({ edit = false, onClose, onSave, formData: initialFormDa
 
   const handleSearchKey = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/getLlaves/?q=${keySearchTerm}`);
+      const response = await axios.get(`https://inventariodeporcali.onrender.com/getLlaves/?q=${keySearchTerm}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setKeyResults(response.data.llaves); // 'keys' debe coincidir con la estructura de la respuesta de la API
     } catch (error) {
       console.error('Error al buscar llaves:', error);

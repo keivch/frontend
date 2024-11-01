@@ -33,7 +33,13 @@ const Htickets = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get("https://inventariodeporcali.onrender.com/getAllTickets/");
+        const response = await axios.get("https://inventariodeporcali.onrender.com/getAllTickets/",
+          {
+            headers: {
+              "Authorization": `Bearer ${cookies.load("SessionId")}`,
+            },
+          }
+        );
         setTickets(response.data.tickets);
         setLoading(false); // Desactivar el loader
       } catch (error) {

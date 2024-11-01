@@ -47,7 +47,12 @@ const Tickets = () => {
           descripcion: ticketForm.description,
           estado: "Pendiente",
           SessionId: cookies.load("SessionId"),
-        });
+        },
+          {
+            headers: {
+              'Authorization': `Bearer ${cookies.load("SessionId")}`
+            }
+          });
 
         // Limpiar el formulario y mostrar mensaje de éxito
         setTicketForm({ type: "", description: "" });
@@ -66,7 +71,12 @@ const Tickets = () => {
     try {
       const token = cookies.load("SessionId");
       const response = await axios.get(
-        `https://inventariodeporcali.onrender.com/getMyTickets/?q=${token}`
+        `https://inventariodeporcali.onrender.com/getMyTickets/?q=${token}`, 
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        }
       );
       setTickets(response.data.tickets.filter((ticket) => ticket.estado !== "Resuelto"));
       setShowNotification(false);

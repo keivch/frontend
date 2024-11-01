@@ -18,7 +18,13 @@ const Passwords = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('https://inventariodeporcali.onrender.com/getContrasenas/');
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getContrasenas/',
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       setPasswords(response.data.contrasenas); // Actualiza el estado con los equipos obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
@@ -37,7 +43,13 @@ const Passwords = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/getContrasena/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getContrasena/', { id },
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       response.data.contrasena.Usuario = response.data.contrasena.Usuario.nombre;
       setFormData(response.data.contrasena); // actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
@@ -73,7 +85,13 @@ const Passwords = () => {
 
     }
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addContrasenas/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addContrasenas/', formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos

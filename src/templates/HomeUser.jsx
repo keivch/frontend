@@ -45,7 +45,13 @@ const HomeUser = () => {
 
     const fetchComunicados = async () => {
         try {
-            const response = await axios.get('https://inventariodeporcali.onrender.com/getComunicados');
+            const response = await axios.get('https://inventariodeporcali.onrender.com/getComunicados',
+                {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                    }
+                }
+            );
             const sortedComunicados = response.data.coms.sort(
                 (a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)
             );
@@ -75,6 +81,7 @@ const HomeUser = () => {
             await axios.post('https://inventariodeporcali.onrender.com/addComunicado/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${cookies.load("SessionId")}`
                 },
             });
             setNewComunicado(''); // Limpiar el formulario
@@ -96,7 +103,12 @@ const HomeUser = () => {
                 id: comunicadoId,
                 tipo: tipo,
                 SessionId: cookies.load('SessionId'),
-            });
+            },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                    }
+                });
             fetchComunicados(); // Actualizar la lista después de la reacción
         } catch (error) {
             console.error('Error adding reaction:', error);
@@ -178,7 +190,7 @@ const HomeUser = () => {
 
                             {comunicado.imagen && (
                                 <img
-                                    src={`https://inventariodeporcali.onrender.com${comunicado.imagen}`}
+                                    src={comunicado.imagen}
                                     alt="Imagen del comunicado"
                                     className="w-full h-auto max-h-80 object-contain rounded-md mb-4"  // Imagen que se adapta
                                 />

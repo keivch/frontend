@@ -19,12 +19,17 @@ const AddUsers = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get('https://inventariodeporcali.onrender.com/getUsers/');
-      setUsers(response.data.userss); // Actualiza el estado con los equipos obtenidos
+      const response = await axios.get('https://inventariodeporcali.onrender.com/getUsers/', {
+        headers: {
+          'Authorization': `Bearer ${cookies.load("SessionId")}`
+        }
+      });
+      setUsers(response.data.userss); // Actualiza el estado con los usuarios obtenidos
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);
     }
   };
+
 
   useEffect(() => {
     if (!cookies.load("SessionId")) {
@@ -38,7 +43,11 @@ const AddUsers = () => {
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/getUser/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getUser/', { id }, {
+        headers: {
+          'Authorization': `Bearer ${cookies.load("SessionId")}`
+        }
+      });
       response.data.user.cargo = response.data.user.cargo.nombre;
       setFormData(response.data.user); // Actualiza el formulario con la información del equipo
       setIsEdit(edit);  // Desactiva la edición
@@ -77,7 +86,13 @@ const AddUsers = () => {
       return;
     }
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addUsers/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addUsers/', formData, 
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
@@ -93,7 +108,13 @@ const AddUsers = () => {
       return;
     }
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addCargo/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addCargo/', formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("SessionId")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupCargoOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
