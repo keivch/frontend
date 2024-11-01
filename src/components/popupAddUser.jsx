@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import cookies from 'react-cookies';
 
 const PopupAddUser = ({ edit = false, onClose, onSave, formData: initialFormData }) => {
   const [formData, setFormData] = useState(initialFormData);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Asegúrate de tener axios instalado
+import cookies from 'react-cookies';
 
 const Popup = ({ edit = false, onClose, onSave, formData: initialFormData }) => {
   const [formData, setFormData] = useState(initialFormData);
