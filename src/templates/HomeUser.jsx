@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect  } from 'react'; 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavbarUser from "../components/NavbarUser";
 import News from "../components/News";
 import cookies from 'react-cookies';
 import Pusher from 'pusher-js';
+import { useNavigate } from "react-router-dom";
 import Notification from '../components/Noti';
 
 const HomeUser = () => {
@@ -14,6 +15,7 @@ const HomeUser = () => {
     const [selectedImage, setSelectedImage] = useState(null);  // Imagen seleccionada
     const [loading, setLoading] = useState(false);
     const [notificaciones, setNotificaciones] = useState([]);
+    const navigate = useNavigate();
 
     // Obtener comunicados al cargar la página
     useEffect(() => {
