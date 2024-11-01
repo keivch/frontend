@@ -37,7 +37,7 @@ const Login = () => {
         path: "/",
         expires: new Date(Date.now() + 3600000), // 1 hora
         secure: true, 
-        sameSite: "Strict", 
+        sameSite: "Lax", 
         httpOnly: true
       });
       
