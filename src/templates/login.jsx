@@ -82,12 +82,7 @@ const Login = () => {
   return (
     <main className="bg-slate-50 w-full h-screen grid grid-cols-2 relative">
       <section className="m-6 flex justify-center w-2/3 flex-col gap-6 mx-auto relative">
-        <div>
-          <img
-            src="https://e7.pngegg.com/pngimages/662/460/png-clipart-computer-network-internet-computer-software-system-computer-computer-network-computer.png"
-            className="bg-gradient-to-r from-green-950 to-black w-20 p-4 rounded-lg"
-          />
-        </div>
+        
         <h1 className="text-5xl font-bold">Bienvenido</h1>
         <p className="text-2xl text-slate-700">Intranet de Deportivo Cali</p>
         <hr className="w-full border-2"></hr>
