@@ -104,7 +104,7 @@ const Login = () => {
           />
           <Button
             type="submit"
-            name={isRequesting ? "Logueando..." : "Ingresar"}
+            name={isRequesting ? "Ingresando..." : "Ingresar"}
             onClick={handleClick}
             disabled={isRequesting} // Deshabilita el botón mientras se envía
           />
