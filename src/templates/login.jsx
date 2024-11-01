@@ -27,6 +27,8 @@ const Login = () => {
       alert("Por favor llene todos los campos");
       return;
     }
+
+    setIsRequesting(true); // Indica que la solicitud está en progreso
     try {
       const response = await axios.post("https://inventariodeporcali.onrender.com/login/", {
         correo: correo,
@@ -39,7 +41,7 @@ const Login = () => {
         secure: true, 
         sameSite: "Lax"
       });
-      
+
       if (response.data.admin) {
         navigate("/Home");
       } else {
@@ -47,19 +49,19 @@ const Login = () => {
       }
     } catch (error) {
       alert(error.response.data.error);
+    } finally {
+      setIsRequesting(false); // Termina el estado de solicitud
     }
   };
 
-  // Función para mostrar el popup
   const handleForgotPasswordClick = (e) => {
     e.preventDefault();
     setShowPopup(true);
   };
 
-  // Función para cerrar el popup
   const handleClosePopup = () => {
     setShowPopup(false);
-    setEmailPopup(""); // Limpiar el input de correo si se cierra el popup
+    setEmailPopup("");
   };
 
   const handlePasswordReset = async (event) => {
@@ -81,7 +83,6 @@ const Login = () => {
   return (
     <main className="bg-slate-50 w-full h-screen grid grid-cols-2 relative">
       <section className="m-6 flex justify-center w-2/3 flex-col gap-6 mx-auto relative">
-        
         <h1 className="text-5xl font-bold">Bienvenido</h1>
         <p className="text-2xl text-slate-700">Intranet de Deportivo Cali</p>
         <hr className="w-full border-2"></hr>
@@ -97,14 +98,18 @@ const Login = () => {
             type="password"
             onChange={handlePasswordChange}
             value={password}
-            name="Contraseña"
+            name="Contraseña"
             placeholder="Ejemplo: 123456"
             resetPassword={handleForgotPasswordClick}
           />
-          <Button type="submit" name="Ingresar" onClick={handleClick} />
+          <Button
+            type="submit"
+            name={isRequesting ? "Logueando..." : "Ingresar"}
+            onClick={handleClick}
+            disabled={isRequesting} // Deshabilita el botón mientras se envía
+          />
         </form>
 
-        {/* Popup para solicitud de cambio de contraseña */}
         {showPopup && (
           <div className="absolute bg-white border-4 border-green-900 p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold mb-4">Recuperar Contraseña</h2>
@@ -121,14 +126,14 @@ const Login = () => {
                   isRequesting ? "bg-gray-400" : "bg-green-500"
                 } text-white px-4 py-2 rounded-md hover:bg-green-600`}
                 onClick={handlePasswordReset}
-                disabled={isRequesting} // Deshabilita el botón mientras se envía
+                disabled={isRequesting}
               >
                 {isRequesting ? "Solicitando..." : "Solicitar Cambio"}
               </button>
               <button
                 className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
                 onClick={handleClosePopup}
-                disabled={isRequesting} // Opcionalmente, también puedes deshabilitar el botón de cancelar
+                disabled={isRequesting}
               >
                 Cancelar
               </button>
@@ -156,4 +161,5 @@ const Login = () => {
 };
 
 export default Login;
+
 
