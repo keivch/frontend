@@ -40,7 +40,7 @@ const HomeUser = () => {
     }, []);
 
     useEffect(() => {
-        if (!cookies.load("SessionId")) {
+        if (!cookies.load("sessionid")) {
           navigate("/");
         }
       }, []);
@@ -50,7 +50,7 @@ const HomeUser = () => {
             const response = await axios.get('https://inventariodeporcali.onrender.com/getComunicados',
                 {
                     headers: {
-                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                        'Authorization': `Bearer ${cookies.load("sessionid")}`
                     }
                 }
             );
@@ -72,7 +72,7 @@ const HomeUser = () => {
         // Crear un FormData para enviar texto e imagen
         const formData = new FormData();
         formData.append('contenido', newComunicado);
-        formData.append('SessionId', cookies.load('SessionId'));
+        formData.append('SessionId', cookies.load('sessionid'));
 
         // Verificar si hay una imagen seleccionada
         if (selectedImage) {
@@ -83,7 +83,7 @@ const HomeUser = () => {
             await axios.post('https://inventariodeporcali.onrender.com/addComunicado/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${cookies.load("SessionId")}`
+                    'Authorization': `Bearer ${cookies.load("sessionid")}`
                 },
             });
             setNewComunicado(''); // Limpiar el formulario
@@ -104,11 +104,11 @@ const HomeUser = () => {
             await axios.post('https://inventariodeporcali.onrender.com/addReaccion/', {
                 id: comunicadoId,
                 tipo: tipo,
-                SessionId: cookies.load('SessionId'),
+                SessionId: cookies.load('sessionid'),
             },
                 {
                     headers: {
-                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                        'Authorization': `Bearer ${cookies.load("sessionid")}`
                     }
                 });
             fetchComunicados(); // Actualizar la lista después de la reacción
@@ -121,7 +121,12 @@ const HomeUser = () => {
         if (!comentario) return;
 
         try {
-            await axios.post('https://inventariodeporcali.onrender.com/addComentario/', { id: comunicadoId, contenido: comentario, SessionId: cookies.load('SessionId') });
+            await axios.post('https://inventariodeporcali.onrender.com/addComentario/', { id: comunicadoId, contenido: comentario, SessionId: cookies.load('sessionid') },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${cookies.load("sessionid")}`
+                    }
+                });
             fetchComunicados(); // Actualizar los comentarios
         } catch (error) {
             console.error('Error adding comment:', error);

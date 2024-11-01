@@ -13,7 +13,7 @@ const TicketsUser = () => {
     // Función para obtener los tickets desde el backend
     const fetchTickets = async () => {
         try {
-            const token = cookies.load('SessionId'); // Se asume que el token se almacena en las cookies
+            const token = cookies.load('sessionid'); // Se asume que el token se almacena en las cookies
             const response = await axios.get('https://inventariodeporcali.onrender.com/getAllMyTickets', {
                 params: {
                     q: token
@@ -30,7 +30,7 @@ const TicketsUser = () => {
     };
 
     useEffect(() => {
-        if (!cookies.load("SessionId")) {
+        if (!cookies.load("sessionid")) {
           navigate("/");
         }
       }, []);

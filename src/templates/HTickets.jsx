@@ -14,9 +14,9 @@ const Htickets = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);
@@ -24,7 +24,7 @@ const Htickets = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
@@ -36,7 +36,7 @@ const Htickets = () => {
         const response = await axios.get("https://inventariodeporcali.onrender.com/getAllTickets/",
           {
             headers: {
-              "Authorization": `Bearer ${cookies.load("SessionId")}`,
+              "Authorization": `Bearer ${cookies.load("sessionid")}`,
             },
           }
         );

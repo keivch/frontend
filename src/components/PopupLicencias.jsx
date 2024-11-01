@@ -41,7 +41,7 @@ const PopupLicencias = ({ edit = false, onClose, onSave, formData: initialFormDa
       const response = await axios.get(`https://inventariodeporcali.onrender.com/getLlaves/?q=${keySearchTerm}`,
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -73,7 +73,13 @@ const PopupLicencias = ({ edit = false, onClose, onSave, formData: initialFormDa
 
   const handleSearchUser = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/getUserss2/?q=${userSearchTerm}`);
+      const response = await axios.get(`http://127.0.0.1:8000/getUserss2/?q=${userSearchTerm}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
+          }
+        }
+      );
       setUserResults(response.data.userss); // 'users' debe coincidir con la estructura de la respuesta de la API
     } catch (error) {
       console.error('Error al buscar usuarios:', error);

@@ -21,7 +21,7 @@ const Components = () => {
       const response = await axios.get('https://inventariodeporcali.onrender.com/getDiscos/',
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -32,7 +32,7 @@ const Components = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
@@ -46,7 +46,7 @@ const Components = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/getDisco/', { id }, 
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -63,9 +63,9 @@ const Components = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);
@@ -86,7 +86,7 @@ const Components = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/addDisco/', formData, 
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );

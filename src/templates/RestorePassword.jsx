@@ -22,7 +22,7 @@ const RestorePassword = () => {
                 const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/",
                     {
                         headers: {
-                            'Authorization': `Bearer ${cookies.load("SessionId")}`
+                            'Authorization': `Bearer ${cookies.load("sessionid")}`
                         }
                     }
                 );
@@ -38,7 +38,7 @@ const RestorePassword = () => {
     }, []);
 
     useEffect(() => {
-      if (!cookies.load("SessionId")) {
+      if (!cookies.load("sessionid")) {
         navigate("/");
       }
     }, []);
@@ -48,7 +48,7 @@ const RestorePassword = () => {
             const response = await axios.get("https://inventariodeporcali.onrender.com/getSolicitudes/",
                 {
                     headers: {
-                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                        'Authorization': `Bearer ${cookies.load("sessionid")}`
                     }
                 }
             );
@@ -91,9 +91,9 @@ const RestorePassword = () => {
         event.preventDefault();
         try {
             await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-                SessionId: cookies.load("SessionId"),
+                SessionId: cookies.load("sessionid"),
             });
-            cookies.remove("SessionId");
+            cookies.remove("sessionid");
             navigate("/");
         } catch (error) {
             alert(error);
@@ -116,7 +116,7 @@ const RestorePassword = () => {
             },
                 {
                     headers: {
-                        'Authorization': `Bearer ${cookies.load("SessionId")}`
+                        'Authorization': `Bearer ${cookies.load("sessionid")}`
                     }
                 }
             );

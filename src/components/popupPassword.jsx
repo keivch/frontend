@@ -41,7 +41,7 @@ const PopupPassword = ({ edit = false, onClose, onSave, formData: initialFormDat
       const response = await axios.get(`https://inventariodeporcali.onrender.com/getUserss2/?q=${userSearchTerm}`,
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );

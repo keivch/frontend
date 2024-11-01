@@ -39,7 +39,7 @@ const PopupAddUser = ({ edit = false, onClose, onSave, formData: initialFormData
       const response = await axios.get(`https://inventariodeporcali.onrender.com/getCargos/?q=${searchTerm}`,
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );

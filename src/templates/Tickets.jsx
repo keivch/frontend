@@ -46,11 +46,11 @@ const Tickets = () => {
           tipo: ticketForm.type,
           descripcion: ticketForm.description,
           estado: "Pendiente",
-          SessionId: cookies.load("SessionId"),
+          SessionId: cookies.load("sessionid"),
         },
           {
             headers: {
-              'Authorization': `Bearer ${cookies.load("SessionId")}`
+              'Authorization': `Bearer ${cookies.load("sessionid")}`
             }
           });
 
@@ -69,7 +69,7 @@ const Tickets = () => {
   // Función para obtener los tickets enviados por el usuario
   const fetchTickets = async () => {
     try {
-      const token = cookies.load("SessionId");
+      const token = cookies.load("sessionid");
       const response = await axios.get(
         `https://inventariodeporcali.onrender.com/getMyTickets/?q=${token}`, 
         {
@@ -116,9 +116,9 @@ const Tickets = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);

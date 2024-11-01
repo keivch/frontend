@@ -22,7 +22,13 @@ const Home = () => {
 
   const fetchTickets = async () => {
     try {
-      const response = await axios.get("https://inventariodeporcali.onrender.com/getTickets/");
+      const response = await axios.get("https://inventariodeporcali.onrender.com/getTickets/",
+        {
+          headers: {
+            "Authorization": `Bearer ${cookies.load("sessionid")}`,
+          },
+        }
+      );
       const fetchedTickets = response.data.tickets;
 
       // Si hay más tickets que los anteriores, mostrar notificación
@@ -40,7 +46,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
@@ -79,7 +85,12 @@ const Home = () => {
         id: id,
         estado: newStatus,
         observaciones: observations,
-      });
+      },
+        {
+          headers: {
+            "Authorization": `Bearer ${cookies.load("sessionid")}`,
+          },
+        });
 
       if (response.status === 200) {
         setTickets((prevTickets) =>
@@ -125,9 +136,9 @@ const Home = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);

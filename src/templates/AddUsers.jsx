@@ -21,7 +21,7 @@ const AddUsers = () => {
     try {
       const response = await axios.get('https://inventariodeporcali.onrender.com/getUsers/', {
         headers: {
-          'Authorization': `Bearer ${cookies.load("SessionId")}`
+          'Authorization': `Bearer ${cookies.load("sessionid")}`
         }
       });
       setUsers(response.data.userss); // Actualiza el estado con los usuarios obtenidos
@@ -32,7 +32,7 @@ const AddUsers = () => {
 
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
@@ -45,7 +45,7 @@ const AddUsers = () => {
     try {
       const response = await axios.post('https://inventariodeporcali.onrender.com/getUser/', { id }, {
         headers: {
-          'Authorization': `Bearer ${cookies.load("SessionId")}`
+          'Authorization': `Bearer ${cookies.load("sessionid")}`
         }
       });
       response.data.user.cargo = response.data.user.cargo.nombre;
@@ -62,9 +62,9 @@ const AddUsers = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);
@@ -89,7 +89,7 @@ const AddUsers = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/addUsers/', formData, 
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -111,7 +111,7 @@ const AddUsers = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/addCargo/', formData,
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );

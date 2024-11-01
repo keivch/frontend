@@ -23,7 +23,7 @@ const Licencias = () => {
     try {
       const response = await axios.get('https://inventariodeporcali.onrender.com/getLicencias/', {
         headers: {  
-          'Authorization': `Bearer ${cookies.load("SessionId")}`
+          'Authorization': `Bearer ${cookies.load("sessionid")}`
         }
       });
       setLicencias(response.data.Licencias); // Actualiza el estado con los equipos obtenidos
@@ -37,14 +37,20 @@ const Licencias = () => {
   }, []);
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
 
   const handleViewMore = async (id, edit) => {
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/getLicencia/', { id });
+      const response = await axios.post('https://inventariodeporcali.onrender.com/getLicencia/', { id },
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
+          }
+        }
+      );
       response.data.licencia.nombre = response.data.licencia.nombre.nombre;
       response.data.licencia.llave = response.data.licencia.llave.llave;
       setFormLicenciaData(response.data.licencia); // Actualiza el formulario con la información de la licencia
@@ -60,9 +66,9 @@ const Licencias = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);
@@ -84,7 +90,13 @@ const Licencias = () => {
       return;
     }
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addLicencia/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addLicencia/', formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias
@@ -96,7 +108,13 @@ const Licencias = () => {
 
   const handleSaveLlave = async (formData) => {
     try {
-      const response = await axios.post('https://inventariodeporcali.onrender.com/addLlave/', formData);
+      const response = await axios.post('https://inventariodeporcali.onrender.com/addLlave/', formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
+          }
+        }
+      );
       alert(response.data.message);
       setIsPopupOpenLlave(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias

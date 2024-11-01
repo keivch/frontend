@@ -21,7 +21,7 @@ const Passwords = () => {
       const response = await axios.get('https://inventariodeporcali.onrender.com/getContrasenas/',
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -32,7 +32,7 @@ const Passwords = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
+    if (!cookies.load("sessionid")) {
       navigate("/");
     }
   }, []);
@@ -46,7 +46,7 @@ const Passwords = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/getContrasena/', { id },
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );
@@ -64,9 +64,9 @@ const Passwords = () => {
     event.preventDefault();
     try {
       await axios.post("https://inventariodeporcali.onrender.com/logout/", {
-        SessionId: cookies.load("SessionId"),
+        SessionId: cookies.load("sessionid"),
       });
-      cookies.remove("SessionId");
+      cookies.remove("sessionid");
       navigate("/");
     } catch (error) {
       alert(error);
@@ -88,7 +88,7 @@ const Passwords = () => {
       const response = await axios.post('https://inventariodeporcali.onrender.com/addContrasenas/', formData,
         {
           headers: {
-            'Authorization': `Bearer ${cookies.load("SessionId")}`
+            'Authorization': `Bearer ${cookies.load("sessionid")}`
           }
         }
       );

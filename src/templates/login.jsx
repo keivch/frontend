@@ -33,7 +33,7 @@ const Login = () => {
         password: password,
       });
       const token = response.data.SessionId;
-      cookies.save("SessionId", token, {
+      cookies.save("sessionid", token, {
         path: "/",
         expires: new Date(Date.now() + 3600000), // 1 hora
         secure: true, 
