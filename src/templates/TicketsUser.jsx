@@ -62,7 +62,7 @@ const TicketsUser = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tickets.map((ticket) => (
+                            {tickets.filter((t) => t.cerrado === true).map((ticket) => (
                                     <tr key={ticket.id} className="border-t">
                                         <td className="px-4 py-2">{ticket.tipo}</td>
                                         <td className="px-4 py-2">{ticket.descripcion}</td>

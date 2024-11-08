@@ -57,6 +57,7 @@ const Tickets = () => {
         // Limpiar el formulario y mostrar mensaje de éxito
         setTicketForm({ type: "", description: "" });
         alert("Ticket enviado exitosamente.");
+        fetchTickets();
       } catch (error) {
         console.error("Error al enviar el ticket:", error);
         alert("No se pudo enviar el ticket. Inténtalo de nuevo.");
@@ -191,7 +192,7 @@ const Tickets = () => {
                     </span>
                   </p>
                   <p><strong>Observación:</strong> {ticket.observacion}</p>
-                  <p><strong>Encargado:</strong>{ticket.encargado.nombre? ticket.encargado.nombre : 'N/A'}</p>
+                  <p><strong>Encargado:</strong>{ticket?.encargado?.nombre || 'Sin encargado'}</p>
                 </li>
               ))}
             </ul>

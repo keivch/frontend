@@ -65,7 +65,7 @@ const Htickets = () => {
             <table className="min-w-full bg-white text-gray-800 table-auto">
               <thead className="bg-gray-800 text-white">
                 <tr>
-                  <th className="px-4 py-2">Tipo</th>
+                  <th className="px-4 py-2">Tipo de soporte</th>
                   <th className="px-4 py-2">Descripción</th>
                   <th className="px-4 py-2">Estado</th>
                   <th className="px-4 py-2">Cerrado</th>
