@@ -85,6 +85,7 @@ const Home = () => {
         id: id,
         estado: newStatus,
         observaciones: observations,
+        sessionid : cookies.load("sessionid"),
       },
         {
           headers: {

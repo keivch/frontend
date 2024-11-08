@@ -58,6 +58,7 @@ const TicketsUser = () => {
                                     <th className="px-4 py-2 text-left">Fecha Creación</th>
                                     <th className="px-4 py-2 text-left">Fecha Proceso</th>
                                     <th className="px-4 py-2 text-left">Fecha Cierre</th>
+                                    <th className="px-4 py-2 text-left">Encargado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,35 +70,15 @@ const TicketsUser = () => {
                                         <td className="px-4 py-2">{ticket.cerrado ? 'Sí' : 'No'}</td>
                                         <td className="px-4 py-2">{ticket.observacion}</td>
                                         <td className="px-4 py-2">
-                                            {ticket.fecha_creacion ? new Date(ticket.fecha_creacion).toLocaleString('es-ES', {
-                                                day: '2-digit',
-                                                month: '2-digit',
-                                                year: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                second: '2-digit',
-                                            }) : 'N/A'}
+                                            {ticket.fecha_creacion ? new Date(ticket.fecha_creacion).toLocaleString() : 'N/A'}
                                         </td>
                                         <td className="px-4 py-2">
-                                            {ticket.fecha_proceso ? new Date(ticket.fecha_proceso).toLocaleString('es-ES', {
-                                                day: '2-digit',
-                                                month: '2-digit',
-                                                year: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                second: '2-digit',
-                                            }) : 'N/A'}
+                                            {ticket.fecha_proceso ? new Date(ticket.fecha_proceso).toLocaleString() : 'N/A'}
                                         </td>
                                         <td className="px-4 py-2">
-                                            {ticket.fecha_cierre ? new Date(ticket.fecha_cierre).toLocaleString('es-ES', {
-                                                day: '2-digit',
-                                                month: '2-digit',
-                                                year: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                second: '2-digit',
-                                            }) : 'N/A'}
+                                            {ticket.fecha_cierre ? new Date(ticket.fecha_cierre).toLocaleString() : 'N/A'}
                                         </td>
+                                        <td className="px-4 py-2">{ticket.encargado.nombre? ticket.encargado.nombre : 'N/A'}</td>
 
                                     </tr>
                                 ))}

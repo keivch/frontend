@@ -191,6 +191,7 @@ const Tickets = () => {
                     </span>
                   </p>
                   <p><strong>Observación:</strong> {ticket.observacion}</p>
+                  <p><strong>Encargado:</strong>{ticket.encargado.nombre? ticket.encargado.nombre : 'N/A'}</p>
                 </li>
               ))}
             </ul>

@@ -74,6 +74,7 @@ const Htickets = () => {
                   <th className="px-4 py-2">Fecha Proceso</th>
                   <th className="px-4 py-2">Fecha Cierre</th>
                   <th className="px-4 py-2">Usuario</th>
+                  <th className="px-4 py-2">Encargado</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,6 +96,7 @@ const Htickets = () => {
                     </td>
 
                     <td className="px-4 py-2">{ticket.user?.nombre || "N/A"}</td>
+                    <td className="px-4 py-2">{ticket.encargado?.nombre || "N/A"}</td>
                   </tr>
                 ))}
               </tbody>
