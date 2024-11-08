@@ -79,20 +79,13 @@ const Htickets = () => {
               <tbody>
                 {tickets.map((ticket) => (
                   <tr key={ticket.id} className="border-b">
-                    <td className="px-4 py-2">{ticket.tipo}</td>
-                    <td className="px-4 py-2">{ticket.descripcion}</td>
-                    <td className="px-4 py-2">{ticket.estado}</td>
-                    <td className="px-4 py-2">{ticket.cerrado ? "Sí" : "No"}</td>
-                    <td className="px-4 py-2">{ticket.observacion}</td>
+                    <td className="px-4 py-2 text-center">{ticket.tipo}</td>
+                    <td className="px-4 py-2 text-center">{ticket.descripcion}</td>
+                    <td className="px-4 py-2 text-center">{ticket.estado}</td>
+                    <td className="px-4 py-2 text-center">{ticket.cerrado ? "Sí" : "No"}</td>
+                    <td className="px-4 py-2 text-center">{ticket.observacion}</td>
                     <td className="px-4 py-2">
-                      {ticket.fecha_creacion ? new Date(ticket.fecha_creacion).toLocaleString('es-ES', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                      }) : "N/A"}
+                      {ticket.fecha_creacion ? new Date(ticket.fecha_creacion).toLocaleString() : "N/A"}
                     </td>
                     <td className="px-4 py-2">
                       {ticket.fecha_proceso ? new Date(ticket.fecha_proceso).toLocaleString() : "N/A"}
