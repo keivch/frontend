@@ -5,6 +5,9 @@ import Pusher from "pusher-js";
 import Notification from "../components/Noti";
 import cookies from "react-cookies";
 import { useNavigate } from "react-router-dom";
+import PopupM from "../components/PopupM";
+import { is } from "date-fns/locale";
+import { set } from "date-fns";
 
 const RestorePassword = () => {
     const [requests, setRequests] = useState([]);
@@ -13,6 +16,18 @@ const RestorePassword = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showNotification, setShowNotification] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [message, setMessage] = useState('');
+    const [title, setTitle] = useState('');
+    
+
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+        setMessage('');
+        setTitle('');
+    };
+
     const navigate = useNavigate();
 
     // Cargar solicitudes desde la API
@@ -39,7 +54,7 @@ const RestorePassword = () => {
 
     useEffect(() => {
       if (!cookies.load("sessionid")) {
-        navigate("/");
+        navigate("/"), { replace: true };
       }
     }, []);
 
@@ -102,11 +117,18 @@ const RestorePassword = () => {
 
     const handleSavePassword = async (correo) => {
         if (!newPassword || !newPassword.trim()) {
-            return alert('Por favor ingrese una nueva contraseña');
+            setMessage('La nueva contraseña no puede estar vacía.');
+            setShowPopup(true);
+            setTitle('Error');
+            setShowPopup(true);
+            return 
         }
 
         if (newPassword.length < 8) {
-            return alert('La nueva contraseña debe tener al menos 8 caracteres');
+          setMessage('La nueva contraseña no puede estar vacía.');
+          setTitle('Error');
+          setShowPopup(true);  
+          return 
         }
         
         try {
@@ -123,7 +145,10 @@ const RestorePassword = () => {
             setEditingId(null);
             setNewPassword(''); // Limpiar el input de nueva contrase
             fetchRequests();
-            alert('Contraseña cambiada exitosamente');
+            setMessage('Contraseña cambiada con exito.');
+            setTitle('Exito');
+            setShowPopup(true);
+            
         } catch (error) {
             console.log(error);
         }
@@ -146,7 +171,6 @@ const RestorePassword = () => {
             {showNotification && (
               <Notification
                 message={"Se agregó una solicitud de recuperación de contraseña"}
-                onReload={fetchRequests} // Recargar tickets al hacer clic
               />
             )}
           </section>
@@ -191,6 +215,12 @@ const RestorePassword = () => {
             </div>
           </section>
         </main>
+        <PopupM
+        isOpen={showPopup}
+        onClose={handleClosePopup}
+        title={title}
+        message={message}
+      />
       </div>
       
     );

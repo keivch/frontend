@@ -6,15 +6,25 @@ import { useNavigate } from "react-router-dom";
 import cookies from "react-cookies";
 import PopupAddUser from '../components/popupAddUser';
 import PopupCargo from '../components/PopupCargo';
+import PopupM from '../components/PopupM';
 
 const AddUsers = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupCargoOpen, setIsPopupCargoOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [users, setUsers] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);  // Estado para controlar si el popup está en modo edición o solo vista
+  const [isEdit, setIsEdit] = useState(false);
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState('');
+  const [messagePopupM, setMessagePopupM] = useState('');
 
   const navigate = useNavigate();
+
+  const handleOpenPopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM('');
+    setMessagePopupM('');
+  };
 
 
   const fetchUsuarios = async () => {
@@ -33,7 +43,7 @@ const AddUsers = () => {
 
   useEffect(() => {
     if (!cookies.load("sessionid")) {
-      navigate("/");
+      navigate("/"), { replace: true };
     }
   }, []);
 
@@ -78,11 +88,15 @@ const AddUsers = () => {
 
   const handleSave = async (formData) => {
     if (formData.nombre === '' || formData.cargo === '' || formData.cedula === '' || formData.correo === '' || formData.telefono === '') {
-      alert('Por favor llene todos los campos');
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     if (formData.correo !== '' && !/\S+@\S+\.\S+/.test(formData.correo)) {
-      alert('Por favor ingrese un correo valido');
+      setMessagePopupM("El correo no es valido");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     try {
@@ -93,18 +107,23 @@ const AddUsers = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Exito");
+      setShowPopupM(true);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
     } catch (error) {
-      console.error('Error al agregar el usuario:', error);
-      alert('Error : ' + error.response.data.error);
+      setMessagePopupM(error.response.data.error);
+      setTitlePopupM("Error");
+      setShowPopupM(true);
     }
   };
 
   const saveCargo = async (formData) => {
     if (formData.nombre === '') {
-      alert('Por favor llene todos los campos');
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     try {
@@ -115,7 +134,9 @@ const AddUsers = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Exito");
+      setShowPopupM(true);
       setIsPopupCargoOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
     } catch (error) {
@@ -146,6 +167,12 @@ const AddUsers = () => {
 
   return (
     <main className="bg-slate-50 w-full h-screen flex">
+      <PopupM
+        isOpen={showPopupM}
+        onClose={handleOpenPopupM}
+        title={tittlePopupM}
+        message={messagePopupM}
+      />
       <section className="w-[16%] h-full">
         <Sidebar onLogout={handleLogout} />
       </section>

@@ -5,12 +5,22 @@ import Popup from "../components/Popup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import cookies from "react-cookies";
+import PopupM from "../components/PopupM";
 
 const Equipo = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [equipos, setEquipos] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);  // Estado para controlar si el popup está en modo edición o solo vista
+  const [isEdit, setIsEdit] = useState(false); 
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState('');
+  const [messagePopupM, setMessagePopupM] = useState('');
+  
+  const handleOpenPopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM('');
+    setMessagePopupM('');
+  };
 
   const navigate = useNavigate();
 
@@ -31,8 +41,8 @@ const Equipo = () => {
   };
 
   useEffect(() => {
-    if (!cookies.load("SessionId")) {
-      navigate("/");
+    if (!cookies.load("sessionid")) {
+      navigate("/"), { replace: true };
     }
   }, []);
 
@@ -79,11 +89,15 @@ const Equipo = () => {
 
   const handleSave = async (formData) => {
     if (formData.usuario === '') {
-      alert('Error al agregar el equipo: falta seleccionar usuario');
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     if (formData.serial === '') {
-      alert('Error al agregar el equipo: falta rellenar serial');
+      setMessagePopupM("Por favor llene el serial");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     try {
@@ -94,7 +108,9 @@ const Equipo = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchEquipos(); // Actualiza la lista de equipos
     } catch (error) {
@@ -152,6 +168,12 @@ const Equipo = () => {
         onSave={handleSave}
       />
     )}
+    <PopupM 
+      isOpen={showPopupM}
+      onClose={handleOpenPopupM}
+      title={tittlePopupM}
+      message={messagePopupM}
+    />
   </main>
   
   );

@@ -5,16 +5,24 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import cookies from "react-cookies";
 import PopupPassword from '../components/popupPassword';
+import PopupM from '../components/PopupM';
 
 const Passwords = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [pasword, setPasswords] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);  // Estado para controlar si el popup está en modo edición o solo vista
+  const [isEdit, setIsEdit] = useState(false);  
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState('');
+  const [messagePopupM, setMessagePopupM] = useState('');
 
   const navigate = useNavigate();
 
-
+  const handleOpenPopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM('');
+    setMessagePopupM('');
+  };
 
   const fetchUsuarios = async () => {
     try {
@@ -33,7 +41,7 @@ const Passwords = () => {
 
   useEffect(() => {
     if (!cookies.load("sessionid")) {
-      navigate("/");
+      navigate("/"), { replace: true };
     }
   }, []);
 
@@ -80,7 +88,10 @@ const Passwords = () => {
 
   const handleSave = async (formData) => {
     if (formData.ubicacion === '' || formData.Usuario === '' || formData.contrasena === '' || formData.correo === '' || formData.estado === '' || formData.tipo === '') {
-      alert('Por favor llene todos los campos');
+
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
 
     }
@@ -92,7 +103,9 @@ const Passwords = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Exito");
+      setShowPopupM(true);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de equipos
     } catch (error) {
@@ -139,6 +152,12 @@ const Passwords = () => {
           onSave={handleSave}
         />
       )}
+      <PopupM
+        isOpen={showPopupM}
+        onClose={handleOpenPopupM}
+        title={tittlePopupM}
+        message={messagePopupM}
+      />
     </main>
 
   );

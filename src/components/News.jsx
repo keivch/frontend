@@ -6,7 +6,7 @@ const News = () => {
 
   // Array de imágenes de ejemplo
   const images = [
-    noticiaDestacada,
+    noticiaDestacada
   ];
 
   // Cambiar automáticamente la imagen cada 3 segundos  

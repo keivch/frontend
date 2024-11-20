@@ -4,6 +4,7 @@ import cookies from "react-cookies";
 import Pusher from "pusher-js";
 import { useNavigate } from "react-router-dom";
 import Notification from "../components/Noti";
+import PopupM from "../components/PopupM";
 
 // Componente de notificación con botón para recargar tickets
 
@@ -13,8 +14,41 @@ const Tickets = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState("");
+  const [messagePopupM, setMessagePopupM] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const ticketsPerPage = 2; // Tickets por página
+
+   // Calcular el índice de los tickets a mostrar en la página actual
+   const indexOfLastTicket = currentPage * ticketsPerPage;
+   const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
+   const currentTickets = tickets.slice(indexOfFirstTicket, indexOfLastTicket);
+ 
+   // Calcular el número total de páginas
+   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
+ 
+   // Función para manejar la navegación a la página anterior
+   const handlePrevPage = () => {
+     if (currentPage > 1) {
+       setCurrentPage(currentPage - 1);
+     }
+   };
+ 
+   // Función para manejar la navegación a la página siguiente
+   const handleNextPage = () => {
+     if (currentPage < totalPages) {
+       setCurrentPage(currentPage + 1);
+     }
+   };
 
   const navigate = useNavigate();
+
+  const handleClosePopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM("");
+    setMessagePopupM("");
+  }
 
   const [ticketForm, setTicketForm] = useState({
     type: "",
@@ -32,7 +66,7 @@ const Tickets = () => {
 
   useEffect(() => {
     if (!cookies.load("sessionid")) {
-      navigate("/");
+      navigate("/"), { replace: true };
     }
   }, []);
 
@@ -56,7 +90,9 @@ const Tickets = () => {
 
         // Limpiar el formulario y mostrar mensaje de éxito
         setTicketForm({ type: "", description: "" });
-        alert("Ticket enviado exitosamente.");
+        setTitlePopupM("Ticket enviado");
+        setMessagePopupM("Ticket enviado con exito");
+        setShowPopupM(true);
         fetchTickets();
       } catch (error) {
         console.error("Error al enviar el ticket:", error);
@@ -161,8 +197,8 @@ const Tickets = () => {
         />
       )}
 
-      {/* Contenedor principal */}
-      <div className="flex flex-row w-full p-8">
+        {/* Contenedor principal */}
+        <div className="flex flex-row w-full p-8">
         {/* Lista de tickets */}
         <div className="w-1/3 p-4 bg-black rounded-md mr-4">
           <h2 className="text-2xl font-bold mb-4">Tickets Enviados y en espera</h2>
@@ -170,7 +206,7 @@ const Tickets = () => {
             <p className="text-gray-300">No has enviado ningún ticket aún.</p>
           ) : (
             <ul className="space-y-4">
-              {tickets.map((ticket) => (
+              {currentTickets.map((ticket) => (
                 <li
                   key={ticket.id}
                   className="bg-white text-black p-4 rounded-md shadow-md"
@@ -197,6 +233,24 @@ const Tickets = () => {
               ))}
             </ul>
           )}
+
+          {/* Paginación */}
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800"
+            >
+              Anterior
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800"
+            >
+              Siguiente
+            </button>
+          </div>
         </div>
 
         {/* Formulario de nuevo ticket */}
@@ -247,6 +301,12 @@ const Tickets = () => {
           </form>
         </div>
       </div>
+      <PopupM
+        isOpen={showPopupM}
+        onClose={handleClosePopupM}
+        title={tittlePopupM}
+        message={messagePopupM}
+      />
     </div>
   );
 };

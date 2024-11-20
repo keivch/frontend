@@ -6,6 +6,8 @@ import cookies from "react-cookies";
 import ContentLicencias from '../components/ContentLicencias';
 import PopupLicencias from '../components/PopupLicencias';
 import PopupLlave from '../components/PopupLlave';
+import PopupM from '../components/PopupM';
+import { set } from 'date-fns';
 
 const Licencias = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -15,9 +17,19 @@ const Licencias = () => {
   const [formLlaveData, setFormLlaveData] = useState({}); // Estado para llaves
 
   const [Licencias, setLicencias] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);  // Estado para controlar si el popup está en modo edición o solo vista
+  const [isEdit, setIsEdit] = useState(false);  
+
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState('');
+  const [messagePopupM, setMessagePopupM] = useState('');
 
   const navigate = useNavigate();
+
+  const handleOpenPopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM('');
+    setMessagePopupM('');
+  };
 
   const fetchUsuarios = async () => {
     try {
@@ -38,7 +50,7 @@ const Licencias = () => {
 
   useEffect(() => {
     if (!cookies.load("sessionid")) {
-      navigate("/");
+      navigate("/"), { replace: true };
     }
   }, []);
 
@@ -82,11 +94,15 @@ const Licencias = () => {
 
   const handleSaveLicencia = async (formData) => {
     if (formData.nombre === '') {
-      alert('Error al agregar la licencia: falta seleccionar nombre');
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     if (formData.llave === '') {
-      alert('Error al agregar la licencia: falta rellenar llave');
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
       return;
     }
     try {
@@ -97,7 +113,9 @@ const Licencias = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Exito");
+      setShowPopupM(true);
       setIsPopupOpen(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias
     } catch (error) {
@@ -107,6 +125,12 @@ const Licencias = () => {
   };
 
   const handleSaveLlave = async (formData) => {
+    if (formData.llave === '') {
+      setMessagePopupM("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setShowPopupM(true);
+      return;
+    }
     try {
       const response = await axios.post('https://inventariodeporcali.onrender.com/addLlave/', formData,
         {
@@ -115,7 +139,9 @@ const Licencias = () => {
           }
         }
       );
-      alert(response.data.message);
+      setMessagePopupM(response.data.message);
+      setTitlePopupM("Exito");
+      setShowPopupM(true);
       setIsPopupOpenLlave(false); // Cierra el popup tras guardar
       fetchUsuarios(); // Actualiza la lista de licencias
     } catch (error) {
@@ -180,6 +206,12 @@ const Licencias = () => {
           onSave={handleSaveLlave}
         />
       )}
+      <PopupM
+        isOpen={showPopupM}
+        onClose={handleOpenPopupM}
+        title={tittlePopupM}
+        message={messagePopupM}
+      />
     </main>
 
   );

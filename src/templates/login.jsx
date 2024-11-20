@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import cookies from "react-cookies";
+import PopupM from "../components/PopupM";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +13,16 @@ const Login = () => {
   const [showPopup, setShowPopup] = useState(false); // Para controlar el popup
   const [emailPopup, setEmailPopup] = useState("");
   const [isRequesting, setIsRequesting] = useState(false); // Nuevo estado para la solicitud
+  const [showPopupM, setShowPopupM] = useState(false);
+  const [tittlePopupM, setTitlePopupM] = useState("");
+  const [messagePopupM, setMessagePopupM] = useState("");
+  
+  
+  const handleClosePopupM = () => {
+    setShowPopupM(false);
+    setTitlePopupM("");
+    setMessagePopupM("");
+  };
 
   const handleCorreoChange = (event) => {
     setCorreo(event.target.value);
@@ -24,7 +35,9 @@ const Login = () => {
   const handleClick = async (event) => {
     event.preventDefault();
     if (correo === "" || password === "") {
-      alert("Por favor llene todos los campos");
+      setTitlePopupM("Error");
+      setMessagePopupM("Por favor llene todos los campos");
+      setShowPopupM(true);
       return;
     }
 
@@ -48,7 +61,9 @@ const Login = () => {
         navigate(`/HomeUser/${response.data.nombre}`);
       }
     } catch (error) {
-      alert(error.response.data.error);
+      setTitlePopupM("Error");
+      setMessagePopupM(error.response.data.error);
+      setShowPopupM(true);
     } finally {
       setIsRequesting(false); // Termina el estado de solicitud
     }
@@ -71,10 +86,13 @@ const Login = () => {
       const response = await axios.post("https://inventariodeporcali.onrender.com/addSolicitud/", {
         correo: emailPopup,
       });
-      alert(response.data.message);
-      setShowPopup(false);
+      setTitlePopupM("Solicitud Enviada");
+      setMessagePopupM("Te enviamos un correo para restablecer tu contraseña");
+      setShowPopupM(true)
     } catch (error) {
-      alert(error.response.data.error);
+      setTitlePopupM("Error");
+      setMessagePopupM(error.response.data.error);
+      setShowPopupM(true)
     } finally {
       setIsRequesting(false); // Termina el estado de solicitud
     }
@@ -156,6 +174,13 @@ const Login = () => {
           <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] rounded-2xl "></div>
         </div>
       </section>
+      <PopupM
+        isOpen={showPopupM}
+        onClose={handleClosePopupM}
+        title={tittlePopupM}
+        message={messagePopupM}
+      />
+
     </main>
   );
 };

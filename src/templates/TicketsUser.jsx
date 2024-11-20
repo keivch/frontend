@@ -31,7 +31,7 @@ const TicketsUser = () => {
 
     useEffect(() => {
         if (!cookies.load("sessionid")) {
-          navigate("/");
+          navigate("/"), { replace: true };
         }
       }, []);
 

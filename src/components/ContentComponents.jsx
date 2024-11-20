@@ -12,8 +12,7 @@ const ContentComponents = ({ title, items, onViewMore, onEdit, onHandleClick }) 
 
   return (
     <section className="p-6  rounded-lg shadow-md">
-      {/* Título */}
-      <h2 className="text-3xl text-white font-bold mb-4">{title}</h2>
+      
 
       {/* Botón para añadir un nuevo equipo */}
       <button

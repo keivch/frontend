@@ -91,14 +91,6 @@ const Sidebar = ({ onLogout }) => {
             </li>
             <li>
               <button
-                onClick={onDocumentationClick}
-                className="text-slate-50 lg:text-xl md:text-4xl font-bebas hover:text-gray-400 w-full text-left"
-              >
-                Documentación
-              </button>
-            </li>
-            <li>
-              <button
                 onClick={onEquiposClick}
                 className="text-slate-50 lg:text-xl md:text-4xl font-bebas hover:text-gray-400 w-full text-left"
               >
