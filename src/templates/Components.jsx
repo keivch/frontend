@@ -184,6 +184,7 @@ const Components = () => {
         'Authorization': `Bearer ${cookies.load("sessionid")}`,
       },
     });
+    handleClosePopupC();
     setTitlePopupM('Éxito');
     setMessagePopupM('Equipo eliminado con éxito');
     setShowPopupM(true);
