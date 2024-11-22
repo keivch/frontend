@@ -325,7 +325,7 @@ const Home = () => {
                           className="bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white font-semibold p-2 rounded-lg"
                         >
                           Cerrar Ticket
-                        </button>
+                        </button > 
                       </div>
                     )}
   
@@ -350,7 +350,7 @@ const Home = () => {
                         ></textarea>
                         <button
                           onClick={() => handleSubmitCloseTicket(ticket.id)}
-                          className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                          className="bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white font-semibold p-2 rounded-lg"
                         >
                           Confirmar Cierre
                         </button>
