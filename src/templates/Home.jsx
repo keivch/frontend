@@ -316,13 +316,13 @@ const Home = () => {
                       <div className="mt-4 space-x-4">
                         <button
                           onClick={() => handleStartProcess(ticket.id)}
-                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                          className="bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white font-semibold p-2 rounded-lg"
                         >
                           Iniciar Proceso
                         </button>
                         <button
                           onClick={() => handleCloseTicket(ticket.id)}
-                          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                          className="bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white font-semibold p-2 rounded-lg"
                         >
                           Cerrar Ticket
                         </button>
