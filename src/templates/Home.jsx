@@ -225,7 +225,8 @@ const Home = () => {
         <div className="mb-6">
           <button
             onClick={handleBackupDownload}
-            className={`bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ${
+            className={`bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white text-xl font-semibold p-4 rounded-lg 
+             ${
               isDownloading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isDownloading}
@@ -258,7 +259,7 @@ const Home = () => {
             </h2>
             <button
               onClick={fetchTickets}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              className="bg-gradient-to-r from-green-950 to-black hover:bg-green-950 transition-all hover:scale-105 text-white text-xl font-semibold p-4 rounded-lg "
             >
               Recargar Tickets
             </button>
